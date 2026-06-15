@@ -8,7 +8,7 @@ let desenhando = false;
 let ultimoX    = null;
 let ultimoY    = null;
 
-const canvas = window.document.getElementById('canvas');
+const canvas = window.window.document.getElementById('canvas');
 const ctx = canvas.getContext('2d');
 
 function redimensionar() {
@@ -67,10 +67,10 @@ function limparTela() {
 }
 
 function log(txt) {
-    const el = document.createElement('div');
+    const el = window.document.createElement('div');
     el.className = 'log-item';
     el.textContent = txt;
-    document.getElementById('log').appendChild(el);
+    window.document.getElementById('log').appendChild(el);
     setTimeout(() => el.classList.add('fade'), 3000);
     setTimeout(() => el.remove(), 4000);
 }
@@ -80,15 +80,15 @@ const host = window.location.hostname;
 const ws = new WebSocket(`ws://${host}:8080`);
 
 ws.onopen = () => {
-    document.getElementById('dot').classList.add('on');
-    document.getElementById('status-txt').textContent = 'conectado';
+    window.document.getElementById('dot').classList.add('on');
+    window.document.getElementById('status-txt').textContent = 'conectado';
     log('WebSocket aberto');
     console.log('[ws] conexão aberta');
 };
 
 ws.onclose = () => {
-    document.getElementById('dot').classList.remove('on');
-    document.getElementById('status-txt').textContent = 'desconectado';
+    window.document.getElementById('dot').classList.remove('on');
+    window.document.getElementById('status-txt').textContent = 'desconectado';
     log('WebSocket fechado');
     console.log('[ws] conexão fechada');
 };
@@ -101,7 +101,7 @@ ws.onmessage = (evento) => {
 
     if (msg.tipo === 'id') {
         meuId = msg.id;
-        document.getElementById('status-txt').textContent = `conectado como #${meuId}`;
+        window.document.getElementById('status-txt').textContent = `conectado como #${meuId}`;
     }
 
     if (msg.tipo === 'estado') {
@@ -124,14 +124,14 @@ ws.onmessage = (evento) => {
 };
 
 // ── Paleta UI ──
-const paletaEl = document.getElementById('paleta');
+const paletaEl = window.window.document.getElementById('paleta');
 CORES.forEach(cor => {
-    const el = document.createElement('div');
+    const el = window.document.createElement('div');
     el.className = 'cor' + (cor === corAtual ? ' ativa' : '');
     el.style.background = cor;
     if (cor === '#f0ede8') el.style.boxShadow = 'inset 0 0 0 1px #ccc';
     el.onclick = () => {
-        document.querySelectorAll('.cor').forEach(c => c.classList.remove('ativa'));
+        window.document.querySelectorAll('.cor').forEach(c => c.classList.remove('ativa'));
         el.classList.add('ativa');
         corAtual = cor;
     };
@@ -139,14 +139,14 @@ CORES.forEach(cor => {
 });
 
 // ── Tamanhos UI ──
-const tamEl = document.getElementById('tamanhos');
+const tamEl = window.document.getElementById('tamanhos');
 TAMANHOS.forEach(t => {
-    const el = document.createElement('div');
+    const el = window.document.createElement('div');
     el.className = 'tam' + (t === tamAtual ? ' ativo' : '');
     el.style.width  = t + 'px';
     el.style.height = t + 'px';
     el.onclick = () => {
-        document.querySelectorAll('.tam').forEach(e => e.classList.remove('ativo'));
+        window.document.querySelectorAll('.tam').forEach(e => e.classList.remove('ativo'));
         el.classList.add('ativo');
         tamAtual = t;
     };
